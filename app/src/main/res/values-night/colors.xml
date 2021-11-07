@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="bg_primary">#0C0E12</color>
+    <color name="bg_secondary">#1A1C1E</color>
+    <color name="bg_tertiary">#383A3E</color>
+    <color name="bg_card">#12161A</color>
+
+    <color name="level0">#12161A</color>
+    <color name="level1">#0E341E</color>
+    <color name="level2">#0C5C26</color>
+    <color name="level3">#249832</color>
+    <color name="level4">#34CE42</color>
+</resources>

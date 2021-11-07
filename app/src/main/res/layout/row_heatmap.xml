@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/layoutSun"
+        android:layout_width="@dimen/width_heatmap"
+        android:layout_height="@dimen/width_heatmap"
+        android:layout_margin="@dimen/margin_heatmap"
+        android:background="@drawable/bg_level_0">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layoutMon"
+        android:layout_width="@dimen/width_heatmap"
+        android:layout_height="@dimen/width_heatmap"
+        android:layout_margin="@dimen/margin_heatmap"
+        android:background="@drawable/bg_level_0">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layoutTue"
+        android:layout_width="@dimen/width_heatmap"
+        android:layout_height="@dimen/width_heatmap"
+        android:layout_margin="@dimen/margin_heatmap"
+        android:background="@drawable/bg_level_0">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layoutWed"
+        android:layout_width="@dimen/width_heatmap"
+        android:layout_height="@dimen/width_heatmap"
+        android:layout_margin="@dimen/margin_heatmap"
+        android:background="@drawable/bg_level_0">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layoutThu"
+        android:layout_width="@dimen/width_heatmap"
+        android:layout_height="@dimen/width_heatmap"
+        android:layout_margin="@dimen/margin_heatmap"
+        android:background="@drawable/bg_level_0">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layoutFri"
+        android:layout_width="@dimen/width_heatmap"
+        android:layout_height="@dimen/width_heatmap"
+        android:layout_margin="@dimen/margin_heatmap"
+        android:background="@drawable/bg_level_0">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/layoutSat"
+        android:layout_width="@dimen/width_heatmap"
+        android:layout_height="@dimen/width_heatmap"
+        android:layout_margin="@dimen/margin_heatmap"
+        android:background="@drawable/bg_level_0">
+
+    </FrameLayout>
+
+</LinearLayout>

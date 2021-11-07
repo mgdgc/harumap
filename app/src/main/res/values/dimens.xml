@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="width_heatmap">16dp</dimen>
+    <dimen name="margin_heatmap">2dp</dimen>
+    <dimen name="radius_heatmap">4dp</dimen>
+    <dimen name="height_rv_heatmap">140dp</dimen>
+</resources>
