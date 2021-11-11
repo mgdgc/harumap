@@ -10,7 +10,9 @@ class HeatmapViewHolder(private val binding: RowHeatmapBinding) :
         const val VIEW_TYPE = R.layout.row_heatmap
     }
 
-    fun bind(data: Week) {
+    fun bind(data: Task?) {
+        if (data == null) return
+
         val heatmaps = arrayOf(
             binding.layoutSun,
             binding.layoutMon,
@@ -22,14 +24,14 @@ class HeatmapViewHolder(private val binding: RowHeatmapBinding) :
         )
 
         for (i in heatmaps.indices) {
-            if (data.tasks[i] <= 1) {
+            if (data.done[i] <= 1) {
                 if (data.done[i] == 1) {
                     heatmaps[i].setBackgroundResource(R.drawable.bg_level_2)
                 }
                 continue
             }
 
-            val level: Float = data.done[i].toFloat() / data.tasks[i]
+            val level: Float = data.done[i].toFloat() / DataManager.routines.size
             when {
                 level == 0f -> {
                     heatmaps[i].setBackgroundResource(R.drawable.bg_level_0)
