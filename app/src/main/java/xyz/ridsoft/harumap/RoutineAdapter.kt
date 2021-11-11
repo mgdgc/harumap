@@ -34,6 +34,8 @@ class RoutineAdapter(private val context: Context) :
         this.data.removeAt(this.data.lastIndex)
     }
 
+    private val routinePref = context.getSharedPreferences(SharedPreferenceKeys.KEY_ROUTINES, 0)
+
     var onStateChangedListener: ((id: Int, complete: Boolean) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -56,7 +58,8 @@ class RoutineAdapter(private val context: Context) :
             holder.onStateChangedListener = { id, done ->
                 onStateChangedListener?.let { it(id, done) }
             }
-            holder.bind(data[position])
+
+            holder.bind(data[position], routinePref.getBoolean(data[position].id.toString(), false))
         }
     }
 
