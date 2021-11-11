@@ -14,16 +14,14 @@ class RoutineViewHolder(private val binding: RowRoutineBinding) :
 
     var onStateChangedListener: ((id: Int, done: Boolean) -> Unit)? = null
 
-    fun bind(routine: Routine) {
+    fun bind(routine: Routine, done: Boolean) {
 
         binding.txtRowRoutine.text = routine.content
 
         // On done state changed
         binding.layoutRowRoutine.setOnClickListener {
-            val complete = DataManager.tasks[routine.id]?.complete ?: false
-
             // Change icon visibility
-            if (complete) {
+            if (done) {
                 binding.imgRowRoutine.visibility = View.INVISIBLE
             } else {
                 binding.imgRowRoutine.visibility = View.VISIBLE
@@ -32,7 +30,7 @@ class RoutineViewHolder(private val binding: RowRoutineBinding) :
             }
 
             // Toggle task
-            onStateChangedListener?.let { it(routine.id, !complete) }
+            onStateChangedListener?.let { it(routine.id, !done) }
         }
     }
 }
