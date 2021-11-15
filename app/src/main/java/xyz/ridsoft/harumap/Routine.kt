@@ -35,15 +35,15 @@ data class Routine(val id: Int, var content: String) {
 data class Task(
     val _id: Int,
     var year: Int,
-    var week: Int,
-    var done: Array<Int>
+    var day: Int,
+    var routines: MutableMap<Int, Boolean>
 ) {
     companion object {
         const val SQL_CREATE = "CREATE TABLE IF NOT EXISTS TASK (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "year INTEGER," +
-                "week INTEGER," +
-                "done TEXT DEFAULT \"[0, 0, 0, 0, 0, 0, 0]\"" +
+                "day INTEGER," +
+                "routines TEXT DEFAULT \"{}\"" +
                 ");"
     }
 
@@ -55,7 +55,7 @@ data class Task(
 
         if (_id != other._id) return false
         if (year != other.year) return false
-        if (week != other.week) return false
+        if (day != other.day) return false
 
         return true
     }
@@ -63,10 +63,8 @@ data class Task(
     override fun hashCode(): Int {
         var result = _id
         result = 31 * result + year
-        result = 31 * result + week
+        result = 31 * result + day
         return result
     }
 
 }
-
-class Week(var week: Int, var done: Array<Int>, var tasks: Array<Int>)
