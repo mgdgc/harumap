@@ -56,9 +56,12 @@ class DBHelper(private val context: Context) {
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
         val week = cal.get(Calendar.WEEK_OF_YEAR)
-        val json = "\"{0, 0, 0, 0, 0, 0, 0}\""
-        db.execSQL("INSERT OR IGNORE INTO TASK (year, week, done, total) VALUES($year, $week, $json, $json)")
-        val cursor = db.rawQuery(sql, null)
+        var cursor = db.rawQuery(sql, null)
+        if (cursor.count == 0) {
+            val json = "\"[0, 0, 0, 0, 0, 0, 0]\""
+            db.execSQL("INSERT OR IGNORE INTO TASK (year, week, done) VALUES($year, $week, $json)")
+            cursor = db.rawQuery(sql, null)
+        }
         return toTasks(cursor)
     }
 
@@ -80,7 +83,7 @@ class DBHelper(private val context: Context) {
                     cursor.getInt(cursor.getColumnIndex("year")),
                     cursor.getInt(cursor.getColumnIndex("week")),
                     Gson().fromJson(
-                        cursor.getString(cursor.getColumnIndex("dayOfWeek")),
+                        cursor.getString(cursor.getColumnIndex("done")),
                         Array<Int>::class.java
                     )
                 )
