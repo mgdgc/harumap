@@ -38,7 +38,7 @@ class DataManager(private val context: Context) {
         DataManager.tasks.clear()
 
         // Get data from db
-        val tasks = dbHelper.getTasks("SELECT * FROM Task ORDER BY ASC")
+        val tasks = dbHelper.getTasks("SELECT * FROM Task ORDER BY _id ASC")
         for (task in tasks) {
             DataManager.tasks[task._id] = task
         }
