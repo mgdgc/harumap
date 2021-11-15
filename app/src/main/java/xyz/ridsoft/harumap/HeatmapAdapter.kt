@@ -1,6 +1,7 @@
 package xyz.ridsoft.harumap
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -27,7 +28,14 @@ class HeatmapAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewHolder = holder as HeatmapViewHolder
-        viewHolder.bind(this.data[position])
+        val cal = Calendar.getInstance()
+        if (data[position]?.year == cal.get(Calendar.YEAR) &&
+            data[position]?.week == cal.get(Calendar.WEEK_OF_YEAR)
+        ) {
+            viewHolder.bind(this.data[position], cal.get(Calendar.DAY_OF_WEEK) - 1)
+        } else {
+            viewHolder.bind(this.data[position])
+        }
     }
 
     private fun initData() {
@@ -57,6 +65,9 @@ class HeatmapAdapter(private val context: Context) :
             for (j in prevWeek until tasks[i].week) {
                 data.add(null)
             }
+
+            Log.e("Task" + i, "${tasks[i].week}")
+
             data.add(tasks[i])
             prevWeek = tasks[i].week
         }

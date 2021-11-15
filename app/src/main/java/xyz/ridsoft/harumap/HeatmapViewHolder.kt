@@ -1,5 +1,6 @@
 package xyz.ridsoft.harumap
 
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import xyz.ridsoft.harumap.databinding.RowHeatmapBinding
 
@@ -10,18 +11,18 @@ class HeatmapViewHolder(private val binding: RowHeatmapBinding) :
         const val VIEW_TYPE = R.layout.row_heatmap
     }
 
-    fun bind(data: Task?) {
-        if (data == null) return
+    private val heatmaps = arrayOf(
+        binding.layoutSun,
+        binding.layoutMon,
+        binding.layoutTue,
+        binding.layoutWed,
+        binding.layoutThu,
+        binding.layoutFri,
+        binding.layoutSat
+    )
 
-        val heatmaps = arrayOf(
-            binding.layoutSun,
-            binding.layoutMon,
-            binding.layoutTue,
-            binding.layoutWed,
-            binding.layoutThu,
-            binding.layoutFri,
-            binding.layoutSat
-        )
+    fun bind(data: Task?, today: Int = -1) {
+        if (data == null) return
 
         for (i in heatmaps.indices) {
             if (data.done[i] <= 1) {
@@ -48,6 +49,12 @@ class HeatmapViewHolder(private val binding: RowHeatmapBinding) :
                 else -> {
                     heatmaps[i].setBackgroundResource(R.drawable.bg_level_4)
                 }
+            }
+        }
+
+        if (today != -1) {
+            for (i in (today + 1) until heatmaps.size) {
+                heatmaps[i].visibility = View.GONE
             }
         }
     }
