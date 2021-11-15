@@ -3,7 +3,7 @@ package xyz.ridsoft.harumap
 data class Routine(val id: Int, var content: String) {
     companion object {
         const val SQL_CREATE = "CREATE TABLE IF NOT EXISTS ROUTINE (" +
-                "id INTEGER PRIMARY KEY AUTO_INCREMENT," +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "content TEXT," +
                 "enabled INTEGER DEFAULT 1," +
                 "notification INTEGER DEFAULT 0" +
@@ -40,11 +40,10 @@ data class Task(
 ) {
     companion object {
         const val SQL_CREATE = "CREATE TABLE IF NOT EXISTS TASK (" +
-                "_id INTEGER PRIMARY KEY AUTO_INCREMENT," +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "year INTEGER," +
                 "week INTEGER," +
-                "done TEXT DEFAULT \"{0, 0, 0, 0, 0, 0, 0}\"," +
-                "total TEXT DEFAULT \"{0, 0, 0, 0, 0, 0, 0}\"," +
+                "done TEXT DEFAULT \"[0, 0, 0, 0, 0, 0, 0]\"" +
                 ");"
     }
 
