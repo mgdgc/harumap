@@ -11,50 +11,29 @@ class HeatmapViewHolder(private val binding: RowHeatmapBinding) :
         const val VIEW_TYPE = R.layout.row_heatmap
     }
 
-    private val heatmaps = arrayOf(
-        binding.layoutSun,
-        binding.layoutMon,
-        binding.layoutTue,
-        binding.layoutWed,
-        binding.layoutThu,
-        binding.layoutFri,
-        binding.layoutSat
-    )
-
-    fun bind(data: Task?, today: Int = -1) {
+    fun bind(data: Task?) {
         if (data == null) return
 
-        for (i in heatmaps.indices) {
-            if (data.done[i] <= 1) {
-                if (data.done[i] == 1) {
-                    heatmaps[i].setBackgroundResource(R.drawable.bg_level_2)
-                }
-                continue
-            }
+        var done = 0
+        for (i in data.routines.values)
+            if (i) done++
 
-            val level: Float = data.done[i].toFloat() / DataManager.routines.size
-            when {
-                level == 0f -> {
-                    heatmaps[i].setBackgroundResource(R.drawable.bg_level_0)
-                }
-                level <= 0.25 -> {
-                    heatmaps[i].setBackgroundResource(R.drawable.bg_level_1)
-                }
-                level <= 0.5 -> {
-                    heatmaps[i].setBackgroundResource(R.drawable.bg_level_2)
-                }
-                level <= 0.75 -> {
-                    heatmaps[i].setBackgroundResource(R.drawable.bg_level_3)
-                }
-                else -> {
-                    heatmaps[i].setBackgroundResource(R.drawable.bg_level_4)
-                }
+        val level: Float = done.toFloat() / DataManager.routines.size.toFloat()
+        when {
+            level == 0f -> {
+                binding.layoutRowHeatmap.setBackgroundResource(R.drawable.bg_level_0)
             }
-        }
-
-        if (today != -1) {
-            for (i in (today + 1) until heatmaps.size) {
-                heatmaps[i].visibility = View.GONE
+            level <= 0.25 -> {
+                binding.layoutRowHeatmap.setBackgroundResource(R.drawable.bg_level_1)
+            }
+            level <= 0.5 -> {
+                binding.layoutRowHeatmap.setBackgroundResource(R.drawable.bg_level_2)
+            }
+            level <= 0.75 -> {
+                binding.layoutRowHeatmap.setBackgroundResource(R.drawable.bg_level_3)
+            }
+            else -> {
+                binding.layoutRowHeatmap.setBackgroundResource(R.drawable.bg_level_4)
             }
         }
     }
