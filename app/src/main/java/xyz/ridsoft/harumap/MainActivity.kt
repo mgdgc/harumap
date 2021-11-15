@@ -3,6 +3,8 @@ package xyz.ridsoft.harumap
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import com.google.gson.Gson
 import xyz.ridsoft.harumap.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -15,8 +17,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initData()
+
         // Initialize fragments
         initFragments()
+    }
+
+    private fun initData() {
+        DataManager(this)
+        RoutineManager(this).initRoutineCounts()
     }
 
     private fun initFragments() {
