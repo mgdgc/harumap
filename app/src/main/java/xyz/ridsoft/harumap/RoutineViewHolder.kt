@@ -1,6 +1,7 @@
 package xyz.ridsoft.harumap
 
 import android.content.Context
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.graphics.drawable.AnimationDrawable
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -25,7 +26,7 @@ class RoutineViewHolder(private val binding: RowRoutineBinding) :
                 binding.imgRowRoutine.visibility = View.INVISIBLE
             } else {
                 binding.imgRowRoutine.visibility = View.VISIBLE
-                val avd = binding.imgRowRoutine.drawable as AnimationDrawable
+                val avd = binding.imgRowRoutine.drawable as AnimatedVectorDrawable
                 avd.start()
             }
 
