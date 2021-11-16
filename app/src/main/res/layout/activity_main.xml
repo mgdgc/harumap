@@ -16,19 +16,22 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/ctlMain"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <FrameLayout
                 android:id="@+id/layoutMainHeatmap"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/height_rv_heatmap">
+                android:layout_height="@dimen/height_rv_heatmap"
+                app:layout_collapseMode="parallax">
 
             </FrameLayout>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarMain"
                 android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize">
+                android:layout_height="?android:attr/actionBarSize"
+                app:layout_collapseMode="pin">
 
             </androidx.appcompat.widget.Toolbar>
 
