@@ -1,6 +1,7 @@
 package xyz.ridsoft.harumap
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +30,12 @@ class RoutineAdapter(private val context: Context) :
             this.notifyItemRangeInserted(0, value.size)
         }
 
+    fun add(routines: Array<Routine>) {
+        val prevSize = this.data.size
+        this.data.addAll(routines)
+        this.notifyItemRangeInserted(prevSize, this.data.lastIndex)
+    }
+
     fun add(routine: Routine) {
         this.data.add(routine)
         this.notifyItemInserted(this.data.lastIndex)
@@ -37,10 +44,6 @@ class RoutineAdapter(private val context: Context) :
     fun remove(position: Int) {
         this.data.removeAt(position)
         this.notifyItemRemoved(position)
-    }
-
-    fun removeLast() {
-        this.data.removeAt(this.data.lastIndex)
     }
 
     var onStateChangedListener: ((id: Int, complete: Boolean) -> Unit)? = null
@@ -68,6 +71,11 @@ class RoutineAdapter(private val context: Context) :
 
             holder.bind(data[position], task.routines[data[position].id] == true)
         }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position < this.data.size) RoutineViewHolder.VIEW_TYPE
+        else FooterViewHolder.VIEW_TYPE
     }
 
     override fun getItemCount(): Int {
