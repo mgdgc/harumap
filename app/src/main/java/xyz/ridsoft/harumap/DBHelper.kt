@@ -104,11 +104,15 @@ class DBHelper(private val context: Context) {
 
     fun update(task: Task) {
         val sql =
-            "INSERT OR REPLACE INTO Task (year, week, done, total) VALUES (" +
-                    "${task.year}, " +
-                    "${task.day}, " +
-                    Gson().toJson(task.routines) +
-                    ") WHERE _id = ${task._id};"
+            "UPDATE Task SET routines = '${Gson().toJson(task.routines)}' WHERE year = ${task.year} AND day = ${task.day}"
+
+        db.execSQL(sql)
+    }
+
+    fun insert(routine: Routine) {
+        val sql =
+            "INSERT OR IGNORE INTO Routine (content, enabled, notification) " +
+                    "VALUES (\"${routine.content}\", ${routine.enabled}, ${routine.notification});"
         db.execSQL(sql)
     }
 
