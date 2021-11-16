@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">하루맵</string>
+
+    <string name="cancel">취소</string>
+    <string name="confirm">확인</string>
+    <string name="dismiss">닫기\</string>
+    <string name="add">추가</string>
+
+    <!--  RoutineFragment  -->
+    <string name="routine_add_title">루틴 추가</string>
+    <string name="routine_add_empty">새 루틴을 만드려면 내용을 입력하세요.</string>
 </resources>
