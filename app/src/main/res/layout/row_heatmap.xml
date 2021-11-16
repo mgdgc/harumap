@@ -5,61 +5,7 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/layoutSun"
-        android:layout_width="@dimen/width_heatmap"
-        android:layout_height="@dimen/width_heatmap"
-        android:layout_margin="@dimen/margin_heatmap"
-        android:background="@drawable/bg_level_0">
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/layoutMon"
-        android:layout_width="@dimen/width_heatmap"
-        android:layout_height="@dimen/width_heatmap"
-        android:layout_margin="@dimen/margin_heatmap"
-        android:background="@drawable/bg_level_0">
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/layoutTue"
-        android:layout_width="@dimen/width_heatmap"
-        android:layout_height="@dimen/width_heatmap"
-        android:layout_margin="@dimen/margin_heatmap"
-        android:background="@drawable/bg_level_0">
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/layoutWed"
-        android:layout_width="@dimen/width_heatmap"
-        android:layout_height="@dimen/width_heatmap"
-        android:layout_margin="@dimen/margin_heatmap"
-        android:background="@drawable/bg_level_0">
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/layoutThu"
-        android:layout_width="@dimen/width_heatmap"
-        android:layout_height="@dimen/width_heatmap"
-        android:layout_margin="@dimen/margin_heatmap"
-        android:background="@drawable/bg_level_0">
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/layoutFri"
-        android:layout_width="@dimen/width_heatmap"
-        android:layout_height="@dimen/width_heatmap"
-        android:layout_margin="@dimen/margin_heatmap"
-        android:background="@drawable/bg_level_0">
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/layoutSat"
+        android:id="@+id/layoutRowHeatmap"
         android:layout_width="@dimen/width_heatmap"
         android:layout_height="@dimen/width_heatmap"
         android:layout_margin="@dimen/margin_heatmap"
