@@ -1,5 +1,6 @@
 package xyz.ridsoft.harumap
 
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import xyz.ridsoft.harumap.databinding.RowHeatmapBinding
@@ -18,7 +19,9 @@ class HeatmapViewHolder(private val binding: RowHeatmapBinding) :
         for (i in data.routines.values)
             if (i) done++
 
-        val level: Float = done.toFloat() / DataManager.routines.size.toFloat()
+        val level: Float = if (done == 0 || DataManager.routines.isEmpty()) 0.0f
+        else done.toFloat() / DataManager.routines.size.toFloat()
+
         when {
             level == 0f -> {
                 binding.layoutRowHeatmap.setBackgroundResource(R.drawable.bg_level_0)
