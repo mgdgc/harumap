@@ -1,14 +1,18 @@
 package xyz.ridsoft.harumap
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import xyz.ridsoft.harumap.databinding.FragmentRoutineBinding
 import java.util.*
+import kotlin.collections.ArrayList
 
 class RoutineFragment : Fragment() {
 
@@ -30,24 +34,27 @@ class RoutineFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initTask()
+        initData()
         initRecyclerView()
     }
 
-    private fun initTask() {
+    private fun initData() {
         // Get calendar
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
         val week = cal.get(Calendar.WEEK_OF_YEAR)
         dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
 
+        // Initialize DB
         dbHelper = DBHelper(requireContext())
+        // Initialize Task
         task = dbHelper.getTask(year, week)
     }
 
     private fun initRecyclerView() {
         // Initialize recyclerview
         adapter = RoutineAdapter(requireContext())
+        reloadData()
         adapter.onStateChangedListener = { id, complete ->
             // Update db
             task.routines[id] = complete
@@ -57,4 +64,9 @@ class RoutineFragment : Fragment() {
         binding.rvRoutine.layoutManager = LinearLayoutManager(requireContext())
         binding.rvRoutine.adapter = adapter
     }
+
+    fun reloadData() {
+        adapter.data = dbHelper.getRoutines()
+    }
+
 }
