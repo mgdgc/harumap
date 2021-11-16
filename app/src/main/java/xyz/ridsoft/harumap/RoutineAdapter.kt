@@ -6,9 +6,18 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import xyz.ridsoft.harumap.databinding.RowFooterBinding
 import xyz.ridsoft.harumap.databinding.RowRoutineBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 class RoutineAdapter(private val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private val dbHelper = DBHelper(context)
+    private val calendar = Calendar.getInstance()
+    private val task = dbHelper.getTask(
+        calendar.get(Calendar.YEAR),
+        calendar.get(Calendar.DAY_OF_YEAR)
+    )
 
     var data: ArrayList<Routine> = arrayListOf()
         set(value) {
@@ -34,8 +43,6 @@ class RoutineAdapter(private val context: Context) :
         this.data.removeAt(this.data.lastIndex)
     }
 
-    private val routinePref = context.getSharedPreferences(SharedPreferenceKeys.KEY_ROUTINES, 0)
-
     var onStateChangedListener: ((id: Int, complete: Boolean) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -59,7 +66,7 @@ class RoutineAdapter(private val context: Context) :
                 onStateChangedListener?.let { it(id, done) }
             }
 
-            holder.bind(data[position], routinePref.getBoolean(data[position].id.toString(), false))
+            holder.bind(data[position], task.routines[data[position].id] == true)
         }
     }
 
