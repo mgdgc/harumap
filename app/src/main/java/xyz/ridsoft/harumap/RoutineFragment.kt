@@ -49,18 +49,9 @@ class RoutineFragment : Fragment() {
         // Initialize recyclerview
         adapter = RoutineAdapter(requireContext())
         adapter.onStateChangedListener = { id, complete ->
-            // Update preference
-            val routinePref =
-                requireContext().getSharedPreferences(SharedPreferenceKeys.KEY_ROUTINES, 0)
-            val edit = routinePref.edit()
-            edit.putBoolean(id.toString(), complete)
-            edit.apply()
-
             // Update db
             task.routines[id] = complete
-
             dbHelper.update(task)
-
         }
 
         binding.rvRoutine.layoutManager = LinearLayoutManager(requireContext())
