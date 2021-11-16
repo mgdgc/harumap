@@ -53,38 +53,46 @@ class DBHelper(private val context: Context) {
     }
 
     fun getTasks(sql: String): ArrayList<Task> {
-        val cal = Calendar.getInstance()
-        val year = cal.get(Calendar.YEAR)
-        val week = cal.get(Calendar.WEEK_OF_YEAR)
         var cursor = db.rawQuery(sql, null)
+
         if (cursor.count == 0) {
-            val json = "\"[0, 0, 0, 0, 0, 0, 0]\""
-            db.execSQL("INSERT OR IGNORE INTO TASK (year, week, done) VALUES($year, $week, $json)")
+            val cal = Calendar.getInstance()
+            val y = cal.get(Calendar.YEAR)
+            val d = cal.get(Calendar.DAY_OF_YEAR)
+            db.execSQL("INSERT OR IGNORE INTO TASK (year, day, routines) VALUES($y, $d, \"{}\")")
+
             cursor = db.rawQuery(sql, null)
         }
+
         return toTasks(cursor)
     }
 
-    fun getTask(year: Int, week: Int): Task {
+    fun getTask(year: Int, day: Int): Task {
         val sql =
-            "SELECT * FROM Task WHERE year = $year AND week = $week;"
+            "SELECT * FROM Task WHERE year = $year AND day = $day;"
 
-        val tasks = getTasks(sql)
+        var tasks = getTasks(sql)
+
+        if (tasks.isEmpty()) {
+            db.execSQL("INSERT OR IGNORE INTO TASK (year, day, routines) VALUES($year, $day, \"{}\")")
+            tasks = getTasks(sql)
+        }
 
         return tasks[0]
     }
 
     private fun toTasks(cursor: Cursor): ArrayList<Task> {
         val tasks: ArrayList<Task> = arrayListOf()
+
         while (cursor.moveToNext()) {
             tasks.add(
                 Task(
                     cursor.getInt(cursor.getColumnIndex("_id")),
                     cursor.getInt(cursor.getColumnIndex("year")),
-                    cursor.getInt(cursor.getColumnIndex("week")),
+                    cursor.getInt(cursor.getColumnIndex("day")),
                     Gson().fromJson(
-                        cursor.getString(cursor.getColumnIndex("done")),
-                        Array<Int>::class.java
+                        cursor.getString(cursor.getColumnIndex("routines")),
+                        mutableMapOf<Int, Boolean>()::class.java
                     )
                 )
             )
@@ -98,8 +106,8 @@ class DBHelper(private val context: Context) {
         val sql =
             "INSERT OR REPLACE INTO Task (year, week, done, total) VALUES (" +
                     "${task.year}, " +
-                    "${task.week}, " +
-                    Gson().toJson(task.done) +
+                    "${task.day}, " +
+                    Gson().toJson(task.routines) +
                     ") WHERE _id = ${task._id};"
         db.execSQL(sql)
     }
