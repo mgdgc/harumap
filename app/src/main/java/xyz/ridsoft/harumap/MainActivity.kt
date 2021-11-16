@@ -10,7 +10,6 @@ import xyz.ridsoft.harumap.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var dbHelper: DBHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +24,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initData() {
         DataManager(this)
-        RoutineManager(this).initRoutineCounts()
     }
 
     private fun initFragments() {
