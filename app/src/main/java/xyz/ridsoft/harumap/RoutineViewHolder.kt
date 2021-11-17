@@ -6,6 +6,7 @@ import android.graphics.drawable.AnimationDrawable
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import xyz.ridsoft.harumap.databinding.RowRoutineBinding
+import java.util.*
 
 class RoutineViewHolder(private val binding: RowRoutineBinding) :
     RecyclerView.ViewHolder(binding.root) {
@@ -15,7 +16,15 @@ class RoutineViewHolder(private val binding: RowRoutineBinding) :
 
     var onStateChangedListener: ((id: Int, done: Boolean) -> Unit)? = null
 
-    fun bind(routine: Routine, done: Boolean) {
+    fun bind(context: Context, routine: Routine) {
+
+        val calendar = Calendar.getInstance()
+        val task =
+            DBHelper(context).getTask(
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.DAY_OF_YEAR)
+            )
+        val done = task.routines[routine.id] == true
 
         binding.txtRowRoutine.text = routine.content
         binding.imgRowRoutine.visibility = if (done) View.VISIBLE else View.INVISIBLE
