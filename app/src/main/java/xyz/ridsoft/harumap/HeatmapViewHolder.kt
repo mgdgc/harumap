@@ -30,9 +30,6 @@ class HeatmapViewHolder(private val binding: RowHeatmapBinding) :
         val level: Float = if (done == 0 || DataManager.routines.isEmpty()) 0.0f
         else done.toFloat() / DataManager.routines.size.toFloat()
 
-        Log.e("done", done.toString())
-        Log.e("level", level.toString())
-
         when {
             level == 0f -> {
                 binding.layoutRowHeatmap.setBackgroundResource(R.drawable.bg_level_0)
