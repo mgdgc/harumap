@@ -14,7 +14,7 @@
         android:id="@+id/imgRowRoutine"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="24dp"
         android:src="@drawable/avd_anim_done"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
