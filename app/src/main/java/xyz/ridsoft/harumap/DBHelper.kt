@@ -29,7 +29,11 @@ class DBHelper(private val context: Context) {
     }
 
     fun getRoutines(): ArrayList<Routine> {
-        return getRoutines("SELECT * FROM Routine")
+        return getRoutines("SELECT * FROM Routine WHERE enabled = 1;")
+    }
+
+    fun getAllRoutines(): ArrayList<Routine> {
+        return getRoutines("SELECT * FROM Routine;")
     }
 
     fun getRoutines(sql: String): ArrayList<Routine> {
@@ -115,6 +119,13 @@ class DBHelper(private val context: Context) {
     fun update(task: Task) {
         val sql =
             "UPDATE Task SET routines = '${Gson().toJson(task.routines)}' WHERE year = ${task.year} AND day = ${task.day}"
+
+        db.execSQL(sql)
+    }
+
+    fun update(routine: Routine) {
+        val sql =
+            "UPDATE Routine SET enabled = '${routine.enabled}' WHERE id = ${routine.id};"
 
         db.execSQL(sql)
     }

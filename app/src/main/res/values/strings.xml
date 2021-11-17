@@ -4,9 +4,13 @@
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
     <string name="dismiss">Dismiss</string>
+    <string name="delete">Delete</string>
+    <string name="remove">Remove</string>
     <string name="add">Add</string>
 
     <!--  RoutineFragment  -->
     <string name="routine_add_title">Add Routine</string>
     <string name="routine_add_empty">Not saved. (No content)</string>
+    <string name="routine_delete_title">Delete</string>
+    <string name="routine_delete_message">Would you like to delete the routine?</string>
 </resources>

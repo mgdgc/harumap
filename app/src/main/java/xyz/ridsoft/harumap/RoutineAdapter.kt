@@ -39,6 +39,7 @@ class RoutineAdapter(private val context: Context) :
         this.notifyItemRemoved(position)
     }
 
+    var onLongClickListener: ((routine: Routine, position: Int) -> Unit)? = null
     var onStateChangedListener: ((id: Int, complete: Boolean) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
@@ -59,8 +60,9 @@ class RoutineAdapter(private val context: Context) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is RoutineViewHolder) {
 
-            holder.onStateChangedListener = { id, done ->
-                onStateChangedListener?.let { it(id, done) }
+            holder.onStateChangedListener = onStateChangedListener
+            holder.onLongClickListener = { r ->
+                onLongClickListener?.let { it (r, position) }
             }
 
             holder.bind(context, data[position])

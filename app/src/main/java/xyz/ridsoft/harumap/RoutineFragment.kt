@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import xyz.ridsoft.harumap.databinding.FragmentRoutineBinding
@@ -50,6 +51,23 @@ class RoutineFragment : Fragment() {
             DBHelper(requireContext()).update(task)
 
             onRoutineStateChangedListener?.let { it() }
+        }
+        adapter.onLongClickListener = { routine, position ->
+            val alert = AlertDialog.Builder(requireContext())
+            alert.setTitle(R.string.routine_delete_title)
+                .setMessage(R.string.routine_delete_message)
+                .setPositiveButton(R.string.cancel) { d, _ -> d.dismiss() }
+                .setNegativeButton(R.string.delete) { d, _ ->
+                    routine.enabled = false
+
+                    val dbHelper = DBHelper(requireContext())
+                    dbHelper.update(routine)
+
+                    adapter.remove(position)
+
+                    d.dismiss()
+                }
+                .show()
         }
 
         binding.rvRoutine.layoutManager = LinearLayoutManager(requireContext())

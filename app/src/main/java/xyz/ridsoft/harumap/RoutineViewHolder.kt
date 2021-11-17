@@ -14,6 +14,7 @@ class RoutineViewHolder(private val binding: RowRoutineBinding) :
         const val VIEW_TYPE = R.layout.row_routine
     }
 
+    var onLongClickListener: ((routine: Routine) -> Unit)? = null
     var onStateChangedListener: ((id: Int, done: Boolean) -> Unit)? = null
 
     fun bind(context: Context, routine: Routine) {
@@ -42,6 +43,12 @@ class RoutineViewHolder(private val binding: RowRoutineBinding) :
 
             // Toggle task
             onStateChangedListener?.let { it(routine.id, !done) }
+        }
+
+        // On long click
+        binding.layoutRowRoutine.setOnLongClickListener {
+            onLongClickListener?.let { it(routine) }
+            true
         }
     }
 }
