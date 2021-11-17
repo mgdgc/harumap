@@ -18,6 +18,7 @@ class RoutineViewHolder(private val binding: RowRoutineBinding) :
     fun bind(routine: Routine, done: Boolean) {
 
         binding.txtRowRoutine.text = routine.content
+        binding.imgRowRoutine.visibility = if (done) View.VISIBLE else View.INVISIBLE
 
         // On done state changed
         binding.layoutRowRoutine.setOnClickListener {
