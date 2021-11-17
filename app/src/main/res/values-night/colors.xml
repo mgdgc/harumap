@@ -5,6 +5,7 @@
     <color name="bg_secondary">#1A1C1E</color>
     <color name="bg_tertiary">#383A3E</color>
     <color name="bg_card">#12161A</color>
+    <color name="bg_ripple">#66FFFFFF</color>
 
     <color name="level0">#12161A</color>
     <color name="level1">#0E341E</color>
