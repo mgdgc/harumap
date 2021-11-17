@@ -42,6 +42,8 @@ class RoutineAdapter(private val context: Context) :
     var onLongClickListener: ((routine: Routine, position: Int) -> Unit)? = null
     var onStateChangedListener: ((id: Int, complete: Boolean) -> Unit)? = null
 
+    private val calendar = Calendar.getInstance()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             RoutineViewHolder.VIEW_TYPE -> {
@@ -62,10 +64,16 @@ class RoutineAdapter(private val context: Context) :
 
             holder.onStateChangedListener = onStateChangedListener
             holder.onLongClickListener = { r ->
-                onLongClickListener?.let { it (r, position) }
+                onLongClickListener?.let { it(r, position) }
             }
 
-            holder.bind(context, data[position])
+            val task = DBHelper(context).getTask(
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.DAY_OF_YEAR)
+            )
+            holder.done = task.routines[data[position].id] == true
+
+            holder.bind(data[position])
         }
     }
 

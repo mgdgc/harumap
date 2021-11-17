@@ -17,16 +17,9 @@ class RoutineViewHolder(private val binding: RowRoutineBinding) :
     var onLongClickListener: ((routine: Routine) -> Unit)? = null
     var onStateChangedListener: ((id: Int, done: Boolean) -> Unit)? = null
 
-    fun bind(context: Context, routine: Routine) {
+    var done: Boolean = false
 
-        val calendar = Calendar.getInstance()
-        val task =
-            DBHelper(context).getTask(
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.DAY_OF_YEAR)
-            )
-        val done = task.routines[routine.id] == true
-
+    fun bind(routine: Routine) {
         binding.txtRowRoutine.text = routine.content
         binding.imgRowRoutine.visibility = if (done) View.VISIBLE else View.INVISIBLE
 
@@ -41,8 +34,11 @@ class RoutineViewHolder(private val binding: RowRoutineBinding) :
                 avd.start()
             }
 
+            // Toggle
+            done = !done
+
             // Toggle task
-            onStateChangedListener?.let { it(routine.id, !done) }
+            onStateChangedListener?.let { it(routine.id, done) }
         }
 
         // On long click
