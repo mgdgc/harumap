@@ -3,12 +3,17 @@ package xyz.ridsoft.harumap
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.animation.Animation
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import xyz.ridsoft.harumap.databinding.ActivityMainBinding
+import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
 
@@ -88,5 +93,15 @@ class MainActivity : AppCompatActivity() {
                 .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
                 .show()
         }
+
+        binding.ablMain.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (appBarLayout != null) {
+                if (abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
+                    binding.fabRoutine.shrink()
+                } else {
+                    binding.fabRoutine.extend()
+                }
+            }
+        })
     }
 }
