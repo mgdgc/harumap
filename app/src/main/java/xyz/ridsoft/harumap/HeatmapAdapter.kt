@@ -1,6 +1,7 @@
 package xyz.ridsoft.harumap
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -41,8 +42,9 @@ class HeatmapAdapter(private val context: Context) :
         DataManager(context)
 
         // Comparator for sorting (by _id)
-        val comparator =
-            Comparator { task1: Task, task2: Task -> task1._id.toInt() - task2._id.toInt() }
+        val comparator = Comparator { task1: Task, task2: Task ->
+            task1._id.toInt() - task2._id.toInt()
+        }
         // Get tasks from DataManager and sort
         val tasks = DataManager.tasks.values.sortedWith(comparator)
 
@@ -55,14 +57,14 @@ class HeatmapAdapter(private val context: Context) :
         val dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
 
         for (i in 1 until dayOfWeek) {
+            spaces++
             data.add(null)
         }
-        spaces += dayOfWeek - 1
 
         for (i in tasks.indices) {
             // When year changed
             if (tasks[i].year > prevYear) {
-                cal.set(Calendar.YEAR, tasks[i].year)
+                cal.set(Calendar.YEAR, tasks[i].year - 1)
                 // Fill null data between prevWeek ~ the maximum week the year can have
                 for (j in prevDay until cal.getActualMaximum(Calendar.DAY_OF_YEAR)) {
                     data.add(null)
@@ -71,7 +73,7 @@ class HeatmapAdapter(private val context: Context) :
                 prevDay = 0
             }
             // Fill null data between prevWeek ~ this week
-            for (j in prevDay until tasks[i].day) {
+            for (j in prevDay + 1 until tasks[i].day) {
                 data.add(null)
             }
 
