@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         val routine = Routine(0, content)
                         dbHelper.insert(routine)
-                        routineFragment.reloadData()
+                        routineFragment.reloadRoutine()
                     }
 
                     // Dismiss dialog
