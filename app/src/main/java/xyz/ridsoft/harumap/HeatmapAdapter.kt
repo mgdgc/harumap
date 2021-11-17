@@ -87,4 +87,14 @@ class HeatmapAdapter(private val context: Context) :
     override fun getItemCount(): Int {
         return this.data.size
     }
+
+    fun routineUpdated() {
+        val cal = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val day = cal.get(Calendar.DAY_OF_YEAR)
+        val task = DBHelper(context).getTask(year, day)
+        this.data.removeLast()
+        this.data.add(task)
+        notifyItemChanged(this.data.lastIndex)
+    }
 }

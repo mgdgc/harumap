@@ -39,4 +39,8 @@ class HeatmapFragment : Fragment() {
             GridLayoutManager(requireContext(), 7, GridLayoutManager.HORIZONTAL, true)
         binding.rvHeatMapHorizontal.adapter = adapter
     }
+
+    fun routineStateUpdated() {
+        adapter.routineUpdated()
+    }
 }

@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var dbHelper: DBHelper
 
+    private lateinit var heatmapFragment: HeatmapFragment
     private lateinit var routineFragment: RoutineFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,10 +38,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFragments() {
-        supportFragmentManager.beginTransaction().replace(R.id.layoutMainHeatmap, HeatmapFragment())
+        heatmapFragment = HeatmapFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.layoutMainHeatmap, heatmapFragment)
             .commit()
 
         routineFragment = RoutineFragment()
+        routineFragment.onRoutineStateChangedListener = {
+            heatmapFragment.routineStateUpdated()
+        }
         supportFragmentManager.beginTransaction().replace(R.id.layoutMainRoutine, routineFragment)
             .commit()
     }

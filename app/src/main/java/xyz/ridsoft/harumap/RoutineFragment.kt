@@ -16,6 +16,8 @@ class RoutineFragment : Fragment() {
     private lateinit var binding: FragmentRoutineBinding
     private lateinit var adapter: RoutineAdapter
 
+    var onRoutineStateChangedListener: (() -> Unit)? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,6 +48,8 @@ class RoutineFragment : Fragment() {
             task.routines[id] = complete
 
             DBHelper(requireContext()).update(task)
+
+            onRoutineStateChangedListener?.let { it() }
         }
 
         binding.rvRoutine.layoutManager = LinearLayoutManager(requireContext())
