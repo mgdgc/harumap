@@ -1,7 +1,6 @@
 package xyz.ridsoft.harumap
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +12,7 @@ import kotlin.collections.ArrayList
 class HeatmapAdapter(private val context: Context) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private var spaces = 0
     private var data: ArrayList<Task?> = arrayListOf()
 
     init {
@@ -28,11 +28,9 @@ class HeatmapAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val viewHolder = holder as HeatmapViewHolder
-        val cal = Calendar.getInstance()
-        if (data[position]?.year == cal.get(Calendar.YEAR) &&
-            data[position]?.day == cal.get(Calendar.DAY_OF_YEAR)
-        ) {
-            viewHolder.bind(this.data[position])
+
+        if (spaces > position) {
+            viewHolder.bind(null, true)
         } else {
             viewHolder.bind(this.data[position])
         }
@@ -49,26 +47,36 @@ class HeatmapAdapter(private val context: Context) :
         val tasks = DataManager.tasks.values.sortedWith(comparator)
 
         var prevYear = tasks[0].year
-        var prevWeek = tasks[0].day
+        var prevDay = tasks[0].day
+
+        val cal = Calendar.getInstance()
+        cal.set(Calendar.YEAR, prevYear)
+        cal.set(Calendar.DAY_OF_YEAR, prevDay)
+        val dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
+
+        for (i in 1 until dayOfWeek) {
+            data.add(null)
+        }
+        spaces += dayOfWeek - 1
+
         for (i in tasks.indices) {
             // When year changed
             if (tasks[i].year > prevYear) {
-                val cal = Calendar.getInstance()
                 cal.set(Calendar.YEAR, tasks[i].year)
                 // Fill null data between prevWeek ~ the maximum week the year can have
-                for (j in prevWeek until cal.getActualMaximum(Calendar.DAY_OF_YEAR)) {
+                for (j in prevDay until cal.getActualMaximum(Calendar.DAY_OF_YEAR)) {
                     data.add(null)
                 }
                 prevYear = tasks[i].year
-                prevWeek = 0
+                prevDay = 0
             }
             // Fill null data between prevWeek ~ this week
-            for (j in prevWeek until tasks[i].day) {
+            for (j in prevDay until tasks[i].day) {
                 data.add(null)
             }
 
             data.add(tasks[i])
-            prevWeek = tasks[i].day
+            prevDay = tasks[i].day
         }
     }
 
