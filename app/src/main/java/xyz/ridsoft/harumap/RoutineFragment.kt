@@ -19,6 +19,8 @@ class RoutineFragment : Fragment() {
 
     var onRoutineStateChangedListener: (() -> Unit)? = null
 
+    private lateinit var dataManager: DataManager
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +33,7 @@ class RoutineFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        dataManager = DataManager(requireContext())
         initRecyclerView()
     }
 
@@ -50,7 +53,7 @@ class RoutineFragment : Fragment() {
 
             DBHelper(requireContext()).update(task)
 
-            DataManager(requireContext()).initTasks()
+            dataManager.initTasks()
             onRoutineStateChangedListener?.let { it() }
         }
         adapter.onLongClickListener = { routine, position ->
@@ -65,6 +68,9 @@ class RoutineFragment : Fragment() {
                     dbHelper.update(routine)
 
                     adapter.remove(position)
+
+                    dataManager.initRoutines()
+                    onRoutineStateChangedListener?.let { it() }
 
                     d.dismiss()
                 }
