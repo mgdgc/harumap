@@ -6,21 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import xyz.ridsoft.harumap.databinding.FragmentRoutineBinding
 import java.util.*
-import kotlin.collections.ArrayList
 
 class RoutineFragment : Fragment() {
 
     private lateinit var binding: FragmentRoutineBinding
     private lateinit var adapter: RoutineAdapter
-    private lateinit var dbHelper: DBHelper
-    private lateinit var task: Task
-    private var dayOfWeek: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,42 +28,32 @@ class RoutineFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initData()
         initRecyclerView()
-    }
-
-    private fun initData() {
-        // Get calendar
-        val cal = Calendar.getInstance()
-        val year = cal.get(Calendar.YEAR)
-        val day = cal.get(Calendar.DAY_OF_YEAR)
-        dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
-
-        // Initialize DB
-        dbHelper = DBHelper(requireContext())
-        // Initialize Task
-        task = dbHelper.getTask(year, day)
     }
 
     private fun initRecyclerView() {
         // Initialize recyclerview
         adapter = RoutineAdapter(requireContext())
-        reloadData()
+        adapter.data = DBHelper(requireContext()).getRoutines()
         adapter.onStateChangedListener = { id, complete ->
             // Update db
+            // Get calendar
+            val cal = Calendar.getInstance()
+            val year = cal.get(Calendar.YEAR)
+            val day = cal.get(Calendar.DAY_OF_YEAR)
+
+            val task = DBHelper(requireContext()).getTask(year, day)
             task.routines[id] = complete
-            dbHelper.update(task)
-            reloadData()
-            adapter.reloadTask()
+
+            DBHelper(requireContext()).update(task)
         }
 
         binding.rvRoutine.layoutManager = LinearLayoutManager(requireContext())
         binding.rvRoutine.adapter = adapter
     }
 
-    fun reloadData() {
-        adapter.data = dbHelper.getRoutines()
-        initData()
+    fun reloadRoutine() {
+        adapter.data = DBHelper(requireContext()).getRoutines()
     }
 
 }
