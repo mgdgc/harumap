@@ -59,7 +59,8 @@ class DBHelper(private val context: Context) {
             val cal = Calendar.getInstance()
             val y = cal.get(Calendar.YEAR)
             val d = cal.get(Calendar.DAY_OF_YEAR)
-            db.execSQL("INSERT OR IGNORE INTO TASK (year, day, routines) VALUES($y, $d, \"{}\")")
+            db.execSQL("INSERT OR IGNORE INTO TASK (_id, year, day, routines) " +
+                    "VALUES (${Task.generateKey(y, d)}, $y, $d, \"{}\")")
 
             cursor = db.rawQuery(sql, null)
         }
@@ -74,7 +75,8 @@ class DBHelper(private val context: Context) {
         var tasks = getTasks(sql)
 
         if (tasks.isEmpty()) {
-            db.execSQL("INSERT OR IGNORE INTO TASK (year, day, routines) VALUES($year, $day, \"{}\")")
+            db.execSQL("INSERT OR IGNORE INTO TASK (_id, year, day, routines) " +
+                    "VALUES (${Task.generateKey(year, day)}, $year, $day, \"{}\")")
             tasks = getTasks(sql)
         }
 
@@ -87,7 +89,7 @@ class DBHelper(private val context: Context) {
         while (cursor.moveToNext()) {
             tasks.add(
                 Task(
-                    cursor.getInt(cursor.getColumnIndex("_id")),
+                    cursor.getString(cursor.getColumnIndex("_id")),
                     cursor.getInt(cursor.getColumnIndex("year")),
                     cursor.getInt(cursor.getColumnIndex("day")),
                     Gson().fromJson(

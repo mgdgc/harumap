@@ -43,7 +43,8 @@ class HeatmapAdapter(private val context: Context) :
         DataManager(context)
 
         // Comparator for sorting (by _id)
-        val comparator = Comparator { task1: Task, task2: Task -> task1._id - task2._id }
+        val comparator =
+            Comparator { task1: Task, task2: Task -> task1._id.toInt() - task2._id.toInt() }
         // Get tasks from DataManager and sort
         val tasks = DataManager.tasks.values.sortedWith(comparator)
 

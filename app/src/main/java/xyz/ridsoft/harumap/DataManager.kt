@@ -7,7 +7,7 @@ class DataManager(private val context: Context) {
     companion object {
         private var initialized = false
         var routines: MutableMap<Int, Routine> = mutableMapOf()
-        var tasks: MutableMap<Int, Task> = mutableMapOf()
+        var tasks: MutableMap<String, Task> = mutableMapOf()
     }
 
     private val dbHelper = DBHelper(context)

@@ -15,10 +15,10 @@ class RoutineAdapter(private val context: Context) :
 
     private val dbHelper = DBHelper(context)
     private val calendar = Calendar.getInstance()
-    private val task = dbHelper.getTask(
+    private var task = DataManager.tasks[Task.generateKey(
         calendar.get(Calendar.YEAR),
         calendar.get(Calendar.DAY_OF_YEAR)
-    )
+    )]
 
     var data: ArrayList<Routine> = arrayListOf()
         set(value) {
@@ -69,7 +69,7 @@ class RoutineAdapter(private val context: Context) :
                 onStateChangedListener?.let { it(id, done) }
             }
 
-            holder.bind(data[position], task.routines[data[position].id] == true)
+            holder.bind(data[position], task?.routines?.get(data[position].id) == true)
         }
     }
 
@@ -80,5 +80,10 @@ class RoutineAdapter(private val context: Context) :
 
     override fun getItemCount(): Int {
         return this.data.size + 1
+    }
+
+    fun reloadTask() {
+        task = dbHelper.getTask(calendar.get(Calendar.YEAR), calendar.get(Calendar.DAY_OF_YEAR))
+        notifyDataSetChanged()
     }
 }
