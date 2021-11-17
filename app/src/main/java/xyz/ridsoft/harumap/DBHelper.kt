@@ -5,6 +5,8 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -59,8 +61,10 @@ class DBHelper(private val context: Context) {
             val cal = Calendar.getInstance()
             val y = cal.get(Calendar.YEAR)
             val d = cal.get(Calendar.DAY_OF_YEAR)
-            db.execSQL("INSERT OR IGNORE INTO TASK (_id, year, day, routines) " +
-                    "VALUES (${Task.generateKey(y, d)}, $y, $d, \"{}\")")
+            db.execSQL(
+                "INSERT OR IGNORE INTO TASK (_id, year, day, routines) " +
+                        "VALUES (${Task.generateKey(y, d)}, $y, $d, \"{}\")"
+            )
 
             cursor = db.rawQuery(sql, null)
         }
@@ -75,8 +79,10 @@ class DBHelper(private val context: Context) {
         var tasks = getTasks(sql)
 
         if (tasks.isEmpty()) {
-            db.execSQL("INSERT OR IGNORE INTO TASK (_id, year, day, routines) " +
-                    "VALUES (${Task.generateKey(year, day)}, $year, $day, \"{}\")")
+            db.execSQL(
+                "INSERT OR IGNORE INTO TASK (_id, year, day, routines) " +
+                        "VALUES (${Task.generateKey(year, day)}, $year, $day, ''{}'')"
+            )
             tasks = getTasks(sql)
         }
 
@@ -87,14 +93,16 @@ class DBHelper(private val context: Context) {
         val tasks: ArrayList<Task> = arrayListOf()
 
         while (cursor.moveToNext()) {
+            val gson = GsonBuilder().create()
+            val type = object : TypeToken<MutableMap<Int, Boolean>>() {}.type
             tasks.add(
                 Task(
                     cursor.getString(cursor.getColumnIndex("_id")),
                     cursor.getInt(cursor.getColumnIndex("year")),
                     cursor.getInt(cursor.getColumnIndex("day")),
-                    Gson().fromJson(
+                    gson.fromJson<MutableMap<Int, Boolean>>(
                         cursor.getString(cursor.getColumnIndex("routines")),
-                        mutableMapOf<Int, Boolean>()::class.java
+                        type
                     )
                 )
             )
