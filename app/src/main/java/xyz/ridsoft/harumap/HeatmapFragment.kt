@@ -36,7 +36,7 @@ class HeatmapFragment : Fragment() {
 
         // Initialize recyclerview
         binding.rvHeatMapHorizontal.layoutManager =
-            GridLayoutManager(requireContext(), 7, GridLayoutManager.HORIZONTAL, true)
+            GridLayoutManager(requireContext(), 7, GridLayoutManager.HORIZONTAL, false)
         binding.rvHeatMapHorizontal.adapter = adapter
     }
 
