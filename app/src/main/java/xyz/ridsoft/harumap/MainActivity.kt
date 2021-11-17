@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var heatmapFragment: HeatmapFragment
     private lateinit var routineFragment: RoutineFragment
 
+    private lateinit var dataManager: DataManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -33,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        DataManager(this)
+        dataManager = DataManager(this)
         dbHelper = DBHelper(this)
     }
 
@@ -73,7 +75,11 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         val routine = Routine(0, content)
                         dbHelper.insert(routine)
+
+                        dataManager.initTasks()
+                        dataManager.initRoutines()
                         routineFragment.reloadRoutine()
+                        heatmapFragment.routineStateUpdated()
                     }
 
                     // Dismiss dialog

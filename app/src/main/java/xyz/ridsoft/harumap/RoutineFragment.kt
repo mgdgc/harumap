@@ -50,6 +50,7 @@ class RoutineFragment : Fragment() {
 
             DBHelper(requireContext()).update(task)
 
+            DataManager(requireContext()).initTasks()
             onRoutineStateChangedListener?.let { it() }
         }
         adapter.onLongClickListener = { routine, position ->

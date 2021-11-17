@@ -1,5 +1,6 @@
 package xyz.ridsoft.harumap
 
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import xyz.ridsoft.harumap.databinding.RowHeatmapBinding
@@ -11,7 +12,8 @@ class HeatmapViewHolder(private val binding: RowHeatmapBinding) :
         const val VIEW_TYPE = R.layout.row_heatmap
     }
 
-    fun bind(data: Task?, space: Boolean = false) {
+    @Deprecated(message = "")
+    fun bind(task: Task?, space: Boolean = false) {
         // Make empty space and return if it is space
         if (space) {
             binding.layoutRowHeatmap.visibility = View.INVISIBLE
@@ -19,14 +21,18 @@ class HeatmapViewHolder(private val binding: RowHeatmapBinding) :
         }
 
         // Return if null data
-        if (data == null) return
+        if (task == null) return
 
         var done = 0
-        for (i in data.routines.values)
-            if (i) done++
+        for (i in DataManager.routines.keys) {
+            if (task.routines[i] == true) done++
+        }
 
         val level: Float = if (done == 0 || DataManager.routines.isEmpty()) 0.0f
         else done.toFloat() / DataManager.routines.size.toFloat()
+
+        Log.e("done", done.toString())
+        Log.e("level", level.toString())
 
         when {
             level == 0f -> {
