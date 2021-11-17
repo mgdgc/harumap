@@ -32,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_rv_heatmap"
                     android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp">
+                    android:layout_marginBottom="36dp">
 
                 </FrameLayout>
 
