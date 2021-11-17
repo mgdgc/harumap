@@ -42,13 +42,13 @@ class RoutineFragment : Fragment() {
         // Get calendar
         val cal = Calendar.getInstance()
         val year = cal.get(Calendar.YEAR)
-        val week = cal.get(Calendar.WEEK_OF_YEAR)
+        val day = cal.get(Calendar.DAY_OF_YEAR)
         dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
 
         // Initialize DB
         dbHelper = DBHelper(requireContext())
         // Initialize Task
-        task = dbHelper.getTask(year, week)
+        task = dbHelper.getTask(year, day)
     }
 
     private fun initRecyclerView() {
@@ -59,6 +59,8 @@ class RoutineFragment : Fragment() {
             // Update db
             task.routines[id] = complete
             dbHelper.update(task)
+            reloadData()
+            adapter.reloadTask()
         }
 
         binding.rvRoutine.layoutManager = LinearLayoutManager(requireContext())
@@ -67,6 +69,7 @@ class RoutineFragment : Fragment() {
 
     fun reloadData() {
         adapter.data = dbHelper.getRoutines()
+        initData()
     }
 
 }
