@@ -12,7 +12,6 @@ class HeatmapViewHolder(private val binding: RowHeatmapBinding) :
         const val VIEW_TYPE = R.layout.row_heatmap
     }
 
-    @Deprecated(message = "")
     fun bind(task: Task?, space: Boolean = false) {
         // Make empty space and return if it is space
         if (space) {
