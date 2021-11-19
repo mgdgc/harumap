@@ -1,10 +1,12 @@
-package xyz.ridsoft.harumap
+package xyz.ridsoft.harumap.ui.routine
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import xyz.ridsoft.harumap.database.DBHelper
+import xyz.ridsoft.harumap.ui.FooterViewHolder
+import xyz.ridsoft.harumap.Routine
 import xyz.ridsoft.harumap.databinding.RowFooterBinding
 import xyz.ridsoft.harumap.databinding.RowRoutineBinding
 import java.util.*

@@ -1,4 +1,4 @@
-package xyz.ridsoft.harumap
+package xyz.ridsoft.harumap.database
 
 import android.content.Context
 import android.database.Cursor
@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
+import xyz.ridsoft.harumap.Routine
+import xyz.ridsoft.harumap.Task
 import java.util.*
 import kotlin.collections.ArrayList
 

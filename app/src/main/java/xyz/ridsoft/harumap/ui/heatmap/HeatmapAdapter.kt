@@ -1,10 +1,12 @@
-package xyz.ridsoft.harumap
+package xyz.ridsoft.harumap.ui.heatmap
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import xyz.ridsoft.harumap.database.DBHelper
+import xyz.ridsoft.harumap.worker.DataManager
+import xyz.ridsoft.harumap.Task
 import xyz.ridsoft.harumap.databinding.RowHeatmapBinding
 import java.util.*
 import kotlin.Comparator

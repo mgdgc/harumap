@@ -1,4 +1,4 @@
-package xyz.ridsoft.harumap
+package xyz.ridsoft.harumap.database
 
 class DB {
     companion object {

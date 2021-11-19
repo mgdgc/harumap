@@ -1,18 +1,18 @@
-package xyz.ridsoft.harumap
+package xyz.ridsoft.harumap.ui
 
-import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
-import android.view.animation.Animation
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.Gson
+import xyz.ridsoft.harumap.R
+import xyz.ridsoft.harumap.Routine
+import xyz.ridsoft.harumap.database.DBHelper
 import xyz.ridsoft.harumap.databinding.ActivityMainBinding
+import xyz.ridsoft.harumap.ui.heatmap.HeatmapFragment
+import xyz.ridsoft.harumap.ui.routine.RoutineFragment
+import xyz.ridsoft.harumap.worker.DataManager
 import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {

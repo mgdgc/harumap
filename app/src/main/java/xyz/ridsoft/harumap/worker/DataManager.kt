@@ -1,7 +1,9 @@
-package xyz.ridsoft.harumap
+package xyz.ridsoft.harumap.worker
 
 import android.content.Context
-import java.util.*
+import xyz.ridsoft.harumap.Routine
+import xyz.ridsoft.harumap.Task
+import xyz.ridsoft.harumap.database.DBHelper
 
 class DataManager(private val context: Context) {
     companion object {
@@ -24,23 +26,23 @@ class DataManager(private val context: Context) {
 
     fun initRoutines() {
         // Clear data
-        DataManager.routines.clear()
+        routines.clear()
 
         // Get data from db
         val routines = dbHelper.getRoutines()
         for (routine in routines) {
-            DataManager.routines[routine.id] = routine
+            Companion.routines[routine.id] = routine
         }
     }
 
     fun initTasks() {
         // Clear data
-        DataManager.tasks.clear()
+        tasks.clear()
 
         // Get data from db
         val tasks = dbHelper.getTasks("SELECT * FROM Task ORDER BY year ASC, day ASC")
         for (task in tasks) {
-            DataManager.tasks[task._id] = task
+            Companion.tasks[task._id] = task
         }
     }
 }

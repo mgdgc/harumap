@@ -1,6 +1,7 @@
-package xyz.ridsoft.harumap
+package xyz.ridsoft.harumap.ui
 
 import androidx.recyclerview.widget.RecyclerView
+import xyz.ridsoft.harumap.R
 import xyz.ridsoft.harumap.databinding.RowFooterBinding
 
 class FooterViewHolder(binding: RowFooterBinding): RecyclerView.ViewHolder(binding.root) {

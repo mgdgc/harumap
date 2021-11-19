@@ -1,12 +1,11 @@
-package xyz.ridsoft.harumap
+package xyz.ridsoft.harumap.ui.routine
 
-import android.content.Context
 import android.graphics.drawable.AnimatedVectorDrawable
-import android.graphics.drawable.AnimationDrawable
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import xyz.ridsoft.harumap.R
+import xyz.ridsoft.harumap.Routine
 import xyz.ridsoft.harumap.databinding.RowRoutineBinding
-import java.util.*
 
 class RoutineViewHolder(private val binding: RowRoutineBinding) :
     RecyclerView.ViewHolder(binding.root) {

@@ -1,8 +1,10 @@
-package xyz.ridsoft.harumap
+package xyz.ridsoft.harumap.ui.heatmap
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import xyz.ridsoft.harumap.worker.DataManager
+import xyz.ridsoft.harumap.R
+import xyz.ridsoft.harumap.Task
 import xyz.ridsoft.harumap.databinding.RowHeatmapBinding
 
 class HeatmapViewHolder(private val binding: RowHeatmapBinding) :
