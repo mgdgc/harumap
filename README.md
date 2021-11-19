@@ -25,13 +25,11 @@
 ## 다운로드 및 설치
 
 [![Generic badge](https://img.shields.io/badge/Stable-none-orange.svg)](https://github.com/soc06212/HaruMap/releases)
-[![Generic badge](https://img.shields.io/badge/Beta-1.0.0--beta.1-blue.svg)](https://github.com/soc06212/HaruMap/releases)
+[![Generic badge](https://img.shields.io/badge/Beta-1.0.0--beta.1-blue.svg)](https://github.com/soc06212/HaruMap/releases/tag/v1.0.0-beta.1)
 
 <br>
 
 [Releases에서 다운로드](https://github.com/soc06212/HaruMap/releases)
-
-
 
 <br>
 
