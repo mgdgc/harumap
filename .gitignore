@@ -418,3 +418,6 @@ Thumbs.db
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/android,androidstudio,kotlin,jetbrains,intellij
+/ic_harumap.pxd.pxd/QuickLook/Icon.tiff
+/ic_harumap.pxd.pxd/metadata.info
+/ic_harumap.pxd.pxd/QuickLook/Thumbnail.tiff
