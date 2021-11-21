@@ -73,7 +73,18 @@
 
 ## 사용 라이브러리
 - [AndroidX](https://developer.android.com/jetpack/androidx?hl=ko)
+> Apache License
+> Version 2.0, January 2004
+> http://www.apache.org/licenses/
+
 - [Gson](https://github.com/google/gson)
+> Apache License
+> Version 2.0, January 2004
+> http://www.apache.org/licenses/
+
 - [Apache Commons Text](https://commons.apache.org/proper/commons-text/)
+> Apache License
+> Version 2.0, January 2004
+> http://www.apache.org/licenses/
 
 
